@@ -1,4 +1,4 @@
-0.002   2019-02-24 (PERLANCAR)
+0.002   2019-02-24  Released-By: PERLANCAR
 
 	- No functional changes.
 
@@ -6,6 +6,6 @@
 	  show sample benchmark.
 
 
-0.001   2019-01-11 (PERLANCAR)
+0.001   2019-01-11  Released-By: PERLANCAR
 
         - First release, converted from Bencher::Scenario::TextTableModules.
