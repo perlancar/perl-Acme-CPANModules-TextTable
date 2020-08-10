@@ -121,7 +121,7 @@ our $LIST = {
             features => {
                 wide_char => 0,
                 color => 1,
-                box_char => 0,
+                box_char => 1,
             },
         },
         {
