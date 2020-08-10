@@ -125,6 +125,18 @@ our $LIST = {
             },
         },
         {
+            module => 'Text::Table::Sprintf',
+            bench_code => sub {
+                my ($table) = @_;
+                Text::Table::Sprintf::table(rows=>$table, header_row=>1);
+            },
+            features => {
+                wide_char => 0,
+                color => 0,
+                box_char => 0,
+            },
+        },
+        {
             module => 'Text::Table::TinyColor',
             bench_code => sub {
                 my ($table) = @_;
