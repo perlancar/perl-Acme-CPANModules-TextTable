@@ -22,7 +22,7 @@ our $LIST = {
     summary => 'Modules that generate text tables',
     entry_features => {
         wide_char => {summary => 'Whether the use of wide characters (e.g. Kanji) in cells does not cause the table to be misaligned'},
-        color => {summary => 'Whether the module supports ANSI colors'},
+        color => {summary => 'Whether the module supports ANSI colors (i.e. text with ANSI color codes can still be aligned properly)'},
         box_char => {summary => 'Whether the module can utilize box-drawing characters'},
     },
     entries => [
@@ -120,7 +120,7 @@ our $LIST = {
             },
             features => {
                 wide_char => 0,
-                color => 0,
+                color => 1,
                 box_char => 0,
             },
         },
