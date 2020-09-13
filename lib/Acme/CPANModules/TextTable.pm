@@ -37,7 +37,7 @@ our $LIST = {
                     use_box_chars => 0,
                     use_color => 0,
                     columns => $table->[0],
-                    border_style => 'Default::single_ascii',
+                    border_style => 'ASCII::SingleLine',
                 );
                 $t->add_row($table->[$_]) for 1..@$table-1;
                 $t->draw;
