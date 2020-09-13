@@ -1,6 +1,8 @@
 package Acme::CPANModules::TextTable;
 
+# AUTHORITY
 # DATE
+# DIST
 # VERSION
 
 use 5.010001;
@@ -119,7 +121,7 @@ our $LIST = {
                 Text::Table::Tiny::table(rows=>$table, header_row=>1);
             },
             features => {
-                wide_char => 0,
+                wide_char => 1,
                 color => 1,
                 box_char => 1,
             },
