@@ -8,12 +8,12 @@ use strict;
 use warnings;
 
 sub _make_table {
-    my ($cols, $rows) = @_;
+    my ($cols, $rows, $celltext) = @_;
     my $res = [];
     push @$res, [];
     for (0..$cols-1) { $res->[0][$_] = "col" . ($_+1) }
     for my $row (1..$rows) {
-        push @$res, [ map { "row$row.$_" } 1..$cols ];
+        push @$res, [ map { $celltext // "row$row.$_" } 1..$cols ];
     }
     $res;
 }
@@ -24,6 +24,7 @@ our $LIST = {
         wide_char => {summary => 'Whether the use of wide characters (e.g. Kanji) in cells does not cause the table to be misaligned'},
         color => {summary => 'Whether the module supports ANSI colors (i.e. text with ANSI color codes can still be aligned properly)'},
         box_char => {summary => 'Whether the module can utilize box-drawing characters'},
+        multiline_data => {summary => 'Whether the module supports aligning data cells that contain newlines'},
     },
     entries => [
         {
@@ -44,6 +45,7 @@ our $LIST = {
                 wide_char => 1,
                 color => 1,
                 box_char => 1,
+                multiline_data => 1,
             },
         },
         {
@@ -59,6 +61,7 @@ our $LIST = {
                 wide_char => 0,
                 color => 0,
                 box_char => 0,
+                multiline_data => 1,
             },
         },
         {
@@ -74,6 +77,7 @@ our $LIST = {
                 wide_char => 0,
                 color => 0,
                 box_char => 0,
+                multiline_data => 1,
             },
         },
         {
@@ -96,6 +100,7 @@ our $LIST = {
                 wide_char => 0,
                 color => 0,
                 box_char => 0,
+                multiline_data => {value=>0, summary=>'Newlines stripped'},
             },
         },
         {
@@ -110,6 +115,7 @@ our $LIST = {
                 wide_char => 0,
                 color => 0,
                 box_char => {value=>undef, summary=>'Does not draw borders'},
+                multiline_data => 1,
             },
         },
         {
@@ -122,6 +128,7 @@ our $LIST = {
                 wide_char => 0,
                 color => 1,
                 box_char => 1,
+                multiline_data => 0,
             },
         },
         {
@@ -134,6 +141,7 @@ our $LIST = {
                 wide_char => 0,
                 color => 0,
                 box_char => 0,
+                multiline_data => 0,
             },
         },
         {
@@ -146,6 +154,7 @@ our $LIST = {
                 wide_char => 0,
                 color => 1,
                 box_char => 0,
+                multiline_data => 0,
             },
         },
         {
@@ -158,6 +167,7 @@ our $LIST = {
                 wide_char => 1,
                 color => 1,
                 box_char => 0,
+                multiline_data => 0,
             },
         },
         {
@@ -182,6 +192,7 @@ our $LIST = {
                 wide_char => 0,
                 color => 0,
                 box_char => 0,
+                multiline_data => 0,
             },
         },
         {
@@ -194,6 +205,7 @@ our $LIST = {
                 wide_char => 1,
                 color => 0,
                 box_char => {value=>undef, summary=>"Irrelevant"},
+                multiline_data => {value=>1, summary=>"But make sure your CSV parser can handle multiline cell"},
             },
         },
         {
@@ -203,6 +215,10 @@ our $LIST = {
                 Text::Table::HTML::table(rows=>$table, header_row=>1);
             },
             features => {
+                wide_char => 1,
+                color => {value=>0, summary=>'Not converted to HTML color elements'},
+                box_char => 0,
+                multiline_data => 1,
             },
         },
         {
@@ -212,6 +228,10 @@ our $LIST = {
                 Text::Table::HTML::DataTables::table(rows=>$table, header_row=>1);
             },
             features => {
+                wide_char => 1,
+                color => {value=>0, summary=>'Not converted to HTML color elements'},
+                box_char => 0,
+                multiline_data => 1,
             },
         },
         {
@@ -226,16 +246,18 @@ our $LIST = {
                 wide_char => 1,
                 color => 0,
                 box_char => {value=>undef, summary=>"Irrelevant"},
+                multiline_data => 1,
             },
         },
     ],
 
     bench_datasets => [
-        {name=>'tiny (1x1)'    , argv => [_make_table( 1, 1)],},
-        {name=>'small (3x5)'   , argv => [_make_table( 3, 5)],},
-        {name=>'wide (30x5)'   , argv => [_make_table(30, 5)],},
-        {name=>'long (3x300)'  , argv => [_make_table( 3, 300)],},
-        {name=>'large (30x300)', argv => [_make_table(30, 300)],},
+        {name=>'multiline data (2x1)', argv => [ [["col1", "col2"], ["foobar\nbaz\nqux\nquux","corge"]] ], include_by_default=>0 },
+        {name=>'tiny (1x1)'          , argv => [_make_table( 1, 1)],},
+        {name=>'small (3x5)'         , argv => [_make_table( 3, 5)],},
+        {name=>'wide (30x5)'         , argv => [_make_table(30, 5)],},
+        {name=>'long (3x300)'        , argv => [_make_table( 3, 300)],},
+        {name=>'large (30x300)'      , argv => [_make_table(30, 300)],},
     ],
 
 };
