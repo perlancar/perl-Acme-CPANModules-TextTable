@@ -1,6 +1,8 @@
 package Acme::CPANModules::TextTable;
 
+# AUTHORITY
 # DATE
+# DIST
 # VERSION
 
 use 5.010001;
@@ -36,7 +38,7 @@ our $LIST = {
                     use_box_chars => 0,
                     use_color => 0,
                     columns => $table->[0],
-                    border_style => 'Default::single_ascii',
+                    border_style => 'ASCII::SingleLine',
                 );
                 $t->add_row($table->[$_]) for 1..@$table-1;
                 $t->draw;
@@ -125,7 +127,7 @@ our $LIST = {
                 Text::Table::Tiny::table(rows=>$table, header_row=>1);
             },
             features => {
-                wide_char => 0,
+                wide_char => 1,
                 color => 1,
                 box_char => 1,
                 multiline_data => 0,
