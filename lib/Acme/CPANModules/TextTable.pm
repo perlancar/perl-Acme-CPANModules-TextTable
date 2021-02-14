@@ -155,7 +155,7 @@ our $LIST = {
             module => 'Text::Table::TinyBorderStyle',
             bench_code => sub {
                 my ($table) = @_;
-                Text::Table::TinyBorderStylex::table(rows=>$table, header_row=>1);
+                Text::Table::TinyBorderStyle::table(rows=>$table, header_row=>1);
             },
             features => {
                 wide_char_data => 0,

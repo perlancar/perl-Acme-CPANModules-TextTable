@@ -1,3 +1,14 @@
+0.008   2021-02-15  Released-By: PERLANCAR; Urgency: medium
+
+	- Rename feature: color -> color_data.
+
+        - Add features: custom_border, custom_color, color_theme, align_cell,
+	  align_column, rowspan, colspan.
+
+	- Add participants: Text::Table::TinyBorderStyle,
+	  Text::Table::Span.
+
+
 0.007   2021-01-31  Released-By: PERLANCAR; Urgency: high
 
         - Merge releases 0.006 & 0.006.1.
