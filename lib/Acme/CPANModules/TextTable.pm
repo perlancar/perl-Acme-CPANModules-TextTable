@@ -24,9 +24,20 @@ our $LIST = {
     summary => 'Modules that generate text tables',
     entry_features => {
         wide_char => {summary => 'Whether the use of wide characters (e.g. Kanji) in cells does not cause the table to be misaligned'},
-        color => {summary => 'Whether the module supports ANSI colors (i.e. text with ANSI color codes can still be aligned properly)'},
-        box_char => {summary => 'Whether the module can utilize box-drawing characters'},
-        multiline_data => {summary => 'Whether the module supports aligning data cells that contain newlines'},
+        color_data =>  {summary => 'Whether module supports ANSI colors (i.e. text with ANSI color codes can still be aligned properly)'},
+        multiline_data => {summary => 'Whether module supports aligning data cells that contain newlines'},
+
+        box_char => {summary => 'Whether module can utilize box-drawing characters'},
+        custom_border => {summary => 'Whether module allows customizing border in some way'},
+
+        align_column => {summary => "Whether module supports aligning text in a column (left/right/middle)"},
+        align_cell => {summary => "Whether module supports aligning text in individual cells (left/right/middle)"},
+
+        rowspan => {summary => "Whether module supports row spans"},
+        colspan => {summary => "Whether module supports column spans"},
+
+        custom_color => {summary => 'Whether the module produces colored table and supports customizing color in some way'},
+        color_theme => {summary => 'Whether the module supports color theme/scheme'},
     },
     entries => [
         {
@@ -36,7 +47,7 @@ our $LIST = {
                 my $t = Text::ANSITable->new(
                     use_utf8 => 0,
                     use_box_chars => 0,
-                    use_color => 0,
+                    use_color =>  0,
                     columns => $table->[0],
                     border_style => 'ASCII::SingleLine',
                 );
@@ -44,10 +55,17 @@ our $LIST = {
                 $t->draw;
             },
             features => {
-                wide_char => 1,
-                color => 1,
+                align_cell => 1,
+                align_column => 1,
                 box_char => 1,
+                color_data =>  1,
+                color_theme => 1,
+                colspan => 0,
+                custom_border => 1,
+                custom_color => 1,
                 multiline_data => 1,
+                rowspan => 0,
+                wide_char_data => 1,
             },
         },
         {
@@ -60,8 +78,8 @@ our $LIST = {
                 "$t";
             },
             features => {
-                wide_char => 0,
-                color => 0,
+                wide_char_data => 0,
+                color_data =>  0,
                 box_char => 0,
                 multiline_data => 1,
             },
@@ -76,8 +94,8 @@ our $LIST = {
                 $t->render;
             },
             features => {
-                wide_char => 0,
-                color => 0,
+                wide_char_data => 0,
+                color_data =>  0,
                 box_char => 0,
                 multiline_data => 1,
             },
@@ -99,8 +117,8 @@ our $LIST = {
                 $out;
             },
             features => {
-                wide_char => 0,
-                color => 0,
+                wide_char_data => 0,
+                color_data =>  0,
                 box_char => 0,
                 multiline_data => {value=>0, summary=>'Newlines stripped'},
             },
@@ -114,8 +132,8 @@ our $LIST = {
                 $t;
             },
             features => {
-                wide_char => 0,
-                color => 0,
+                wide_char_data => 0,
+                color_data =>  0,
                 box_char => {value=>undef, summary=>'Does not draw borders'},
                 multiline_data => 1,
             },
@@ -127,8 +145,8 @@ our $LIST = {
                 Text::Table::Tiny::table(rows=>$table, header_row=>1);
             },
             features => {
-                wide_char => 1,
-                color => 1,
+                wide_char_data => 1,
+                color_data =>  1,
                 box_char => 1,
                 multiline_data => 0,
             },
@@ -140,8 +158,8 @@ our $LIST = {
                 Text::Table::TinyBorderStylex::table(rows=>$table, header_row=>1);
             },
             features => {
-                wide_char => 0,
-                color => 0,
+                wide_char_data => 0,
+                color_data =>  0,
                 box_char => 1,
                 multiline_data => 0,
             },
@@ -153,10 +171,17 @@ our $LIST = {
                 Text::Table::Span::table(rows=>$table, header_row=>1);
             },
             features => {
-                wide_char => 0,
-                color => 0,
+                align_cell => 0, # todo
+                align_column => 0, # todo
                 box_char => 1,
+                color_data =>  0,
+                color_theme => 1,
+                colspan => 1,
+                custom_border => 1,
+                custom_color => 1,
                 multiline_data => 1,
+                rowspan => 1,
+                wide_char_data => 0,
             },
         },
         {
@@ -166,8 +191,8 @@ our $LIST = {
                 Text::Table::Sprintf::table(rows=>$table, header_row=>1);
             },
             features => {
-                wide_char => 0,
-                color => 0,
+                wide_char_data => 0,
+                color_data =>  0,
                 box_char => 0,
                 multiline_data => 0,
             },
@@ -179,8 +204,8 @@ our $LIST = {
                 Text::Table::TinyColor::table(rows=>$table, header_row=>1);
             },
             features => {
-                wide_char => 0,
-                color => 1,
+                wide_char_data => 0,
+                color_data =>  1,
                 box_char => 0,
                 multiline_data => 0,
             },
@@ -192,8 +217,8 @@ our $LIST = {
                 Text::Table::TinyColorWide::table(rows=>$table, header_row=>1);
             },
             features => {
-                wide_char => 1,
-                color => 1,
+                wide_char_data => 1,
+                color_data =>  1,
                 box_char => 0,
                 multiline_data => 0,
             },
@@ -205,8 +230,8 @@ our $LIST = {
                 Text::Table::TinyWide::table(rows=>$table, header_row=>1);
             },
             features => {
-                wide_char => 1,
-                color => 0,
+                wide_char_data => 1,
+                color_data =>  0,
                 box_char => 0,
             },
         },
@@ -217,8 +242,8 @@ our $LIST = {
                 Text::Table::Org::table(rows=>$table, header_row=>1);
             },
             features => {
-                wide_char => 0,
-                color => 0,
+                wide_char_data => 0,
+                color_data =>  0,
                 box_char => 0,
                 multiline_data => 0,
             },
@@ -230,8 +255,8 @@ our $LIST = {
                 Text::Table::CSV::table(rows=>$table, header_row=>1);
             },
             features => {
-                wide_char => 1,
-                color => 0,
+                wide_char_data => 1,
+                color_data =>  0,
                 box_char => {value=>undef, summary=>"Irrelevant"},
                 multiline_data => {value=>1, summary=>"But make sure your CSV parser can handle multiline cell"},
             },
@@ -243,8 +268,8 @@ our $LIST = {
                 Text::Table::HTML::table(rows=>$table, header_row=>1);
             },
             features => {
-                wide_char => 1,
-                color => {value=>0, summary=>'Not converted to HTML color elements'},
+                wide_char_data => 1,
+                color_data =>  {value=>0, summary=>'Not converted to HTML color elements'},
                 box_char => 0,
                 multiline_data => 1,
             },
@@ -256,8 +281,8 @@ our $LIST = {
                 Text::Table::HTML::DataTables::table(rows=>$table, header_row=>1);
             },
             features => {
-                wide_char => 1,
-                color => {value=>0, summary=>'Not converted to HTML color elements'},
+                wide_char_data => 1,
+                color_data =>  {value=>0, summary=>'Not converted to HTML color elements'},
                 box_char => 0,
                 multiline_data => 1,
             },
@@ -271,8 +296,8 @@ our $LIST = {
                 $t->render; # doesn't add newline
             },
             features => {
-                wide_char => 1,
-                color => 0,
+                wide_char_data => 1,
+                color_data =>  0,
                 box_char => {value=>undef, summary=>"Irrelevant"},
                 multiline_data => 1,
             },
