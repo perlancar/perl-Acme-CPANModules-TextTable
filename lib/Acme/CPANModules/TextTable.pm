@@ -134,6 +134,32 @@ our $LIST = {
             },
         },
         {
+            module => 'Text::Table::TinyBorderStyle',
+            bench_code => sub {
+                my ($table) = @_;
+                Text::Table::TinyBorderStylex::table(rows=>$table, header_row=>1);
+            },
+            features => {
+                wide_char => 0,
+                color => 0,
+                box_char => 1,
+                multiline_data => 0,
+            },
+        },
+        {
+            module => 'Text::Table::Span',
+            bench_code => sub {
+                my ($table) = @_;
+                Text::Table::Span::table(rows=>$table, header_row=>1);
+            },
+            features => {
+                wide_char => 0,
+                color => 0,
+                box_char => 1,
+                multiline_data => 1,
+            },
+        },
+        {
             module => 'Text::Table::Sprintf',
             bench_code => sub {
                 my ($table) = @_;
