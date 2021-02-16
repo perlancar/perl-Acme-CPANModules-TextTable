@@ -8,6 +8,7 @@ package Acme::CPANModules::TextTable;
 use 5.010001;
 use strict;
 use warnings;
+use utf8;
 
 sub _make_table {
     my ($cols, $rows, $celltext) = @_;
@@ -38,10 +39,53 @@ our $LIST = {
 
         custom_color => {summary => 'Whether the module produces colored table and supports customizing color in some way'},
         color_theme => {summary => 'Whether the module supports color theme/scheme'},
+
+        speed = > {summary => "Rendering speed"},
     },
     entries => [
         {
+            module => 'Text::UnicodeBox::Table',
+            description => <<'_',
+
+The main feature of this module is the various border style it provides drawn
+using Unicode box-drawing characters. It allows per-row style. The rendering
+speed is particularly slow compared to other modules.
+
+_
+            bench_code => sub {
+                my ($table) = @_;
+                my $t = Text::UnicodeBox::Table->new;
+                $t->add_header(@{ $table->[0] });
+                $t->add_row(@{ $table->[$_] }) for 1..$#{$table};
+                $t->render;
+            },
+            features => {
+                align_cell => 0,
+                align_column => 1,
+                box_char => 0,
+                color_data => 1,
+                color_theme => 0,
+                colspan => 0,
+                custom_border => 1,
+                custom_color => 0,
+                multiline_data => 0,
+                rowspan => 0,
+                wide_char_data => 1,
+                speed => "slow",
+            },
+        },
+
+        {
             module => 'Text::Table::Manifold',
+            description => <<'_',
+
+Two main features of this module is per-column aligning and wide character
+support. This module, aside from doing its rendering, can also be told to pass
+rendering to HTML, CSV, or other text table module like
+<pm:Text::UnicodeBox::Table>); so in this way it is similar to
+<pm:Text::Table::Any>.
+
+_
             bench_code => sub {
                 my ($table) = @_;
                 my $t = Text::Table::Manifold->new;
@@ -53,7 +97,7 @@ our $LIST = {
                 align_cell => 0,
                 align_column => 1,
                 box_char => undef, # ?
-                color_data => 0,
+                color_data => 1,
                 color_theme => 0,
                 colspan => 0,
                 custom_border => {value=>0, summary=>"But this module can pass rendering to other module like Text::UnicodeBox::Table"},
@@ -330,12 +374,14 @@ our $LIST = {
     ],
 
     bench_datasets => [
-        {name=>'multiline data (2x1)', argv => [ [["col1", "col2"], ["foobar\nbaz\nqux\nquux","corge"]] ], include_by_default=>0 },
         {name=>'tiny (1x1)'          , argv => [_make_table( 1, 1)],},
         {name=>'small (3x5)'         , argv => [_make_table( 3, 5)],},
         {name=>'wide (30x5)'         , argv => [_make_table(30, 5)],},
         {name=>'long (3x300)'        , argv => [_make_table( 3, 300)],},
         {name=>'large (30x300)'      , argv => [_make_table(30, 300)],},
+        {name=>'multiline data (2x1)', argv => [ [["col1", "col2"], ["foobar\nbaz\nqux\nquux","corge"]] ], include_by_default=>0 },
+        {name=>'wide char data (1x2)', argv => [ [["col1"], ["no wide character"], ["宽字"]] ], include_by_default=>0 },
+        {name=>'color data (1x2)'    , argv => [ [["col1"], ["no color"], ["\e[31m\e[1mwith\e[0m \e[32m\e[1mcolor\e[0m"]] ], include_by_default=>0 },
     ],
 
 };
