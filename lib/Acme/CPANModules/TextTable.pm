@@ -41,6 +41,30 @@ our $LIST = {
     },
     entries => [
         {
+            module => 'Text::Table::Manifold',
+            bench_code => sub {
+                my ($table) = @_;
+                my $t = Text::Table::Manifold->new;
+                $t->headers($table->[0]);
+                $t->data([ @{$table}[1 .. $#{$table}] ]);
+                join("\n", @{$t->render(padding => 1)}) . "\n";
+            },
+            features => {
+                align_cell => 0,
+                align_column => 1,
+                box_char => undef, # ?
+                color_data => 0,
+                color_theme => 0,
+                colspan => 0,
+                custom_border => {value=>0, summary=>"But this module can pass rendering to other module like Text::UnicodeBox::Table"},
+                custom_color => 0,
+                multiline_data => 0,
+                rowspan => 0,
+                wide_char_data => 1,
+            },
+        },
+
+        {
             module => 'Text::ANSITable',
             bench_code => sub {
                 my ($table) = @_;
@@ -68,6 +92,7 @@ our $LIST = {
                 wide_char_data => 1,
             },
         },
+
         {
             module => 'Text::ASCIITable',
             bench_code => sub {
