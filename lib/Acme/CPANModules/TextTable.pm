@@ -44,6 +44,35 @@ our $LIST = {
     },
     entries => [
         {
+            module => 'Text::Table::Any',
+            description => <<'_',
+
+This is a common frontend for many text table modules as backends. The interface
+is dead simple, following <pm:Text::Table::Tiny>. The main drawback is that it
+currently does not allow passing (some, any) options to each backend.
+
+_
+            bench_code => sub {
+                my ($table) = @_;
+                Text::Table::Any::table(rows=>$table, header_row=>1);
+            },
+            features => {
+                align_cell     => {value=>undef, summary=>"Depends on backend"},
+                align_column   => {value=>undef, summary=>"Depends on backend"},
+                box_char       => {value=>undef, summary=>"Depends on backend"},
+                color_data     => {value=>undef, summary=>"Depends on backend"},
+                color_theme    => {value=>undef, summary=>"Depends on backend"},
+                colspan        => {value=>undef, summary=>"Depends on backend"},
+                custom_border  => {value=>undef, summary=>"Depends on backend"},
+                custom_color   => {value=>undef, summary=>"Depends on backend"},
+                multiline_data => {value=>undef, summary=>"Depends on backend"},
+                rowspan        => {value=>undef, summary=>"Depends on backend"},
+                wide_char_data => {value=>undef, summary=>"Depends on backend"},
+                speed          => {value=>undef, summary=>"Depends on backend"},
+            },
+        },
+
+        {
             module => 'Text::UnicodeBox::Table',
             description => <<'_',
 
