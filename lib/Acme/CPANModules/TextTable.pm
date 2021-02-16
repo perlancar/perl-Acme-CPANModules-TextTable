@@ -40,7 +40,7 @@ our $LIST = {
         custom_color => {summary => 'Whether the module produces colored table and supports customizing color in some way'},
         color_theme => {summary => 'Whether the module supports color theme/scheme'},
 
-        speed => {summary => "Rendering speed"},
+        #speed => {summary => "Rendering speed", schema=>'str*'},
     },
     entries => [
         {
@@ -68,7 +68,7 @@ _
                 multiline_data => {value=>undef, summary=>"Depends on backend"},
                 rowspan        => {value=>undef, summary=>"Depends on backend"},
                 wide_char_data => {value=>undef, summary=>"Depends on backend"},
-                speed          => {value=>undef, summary=>"Depends on backend"},
+                #speed          => {value=>undef, summary=>"Depends on backend"},
             },
         },
 
@@ -100,7 +100,7 @@ _
                 multiline_data => 0,
                 rowspan => 0,
                 wide_char_data => 1,
-                speed => "slow",
+                #speed => "slow",
             },
         },
 
@@ -417,3 +417,7 @@ _
 
 1;
 # ABSTRACT:
+
+=head1 prepend:SEE ALSO
+
+L<Acme::CPANModules::HTMLTable>
