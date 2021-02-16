@@ -40,7 +40,7 @@ our $LIST = {
         custom_color => {summary => 'Whether the module produces colored table and supports customizing color in some way'},
         color_theme => {summary => 'Whether the module supports color theme/scheme'},
 
-        speed = > {summary => "Rendering speed"},
+        speed => {summary => "Rendering speed"},
     },
     entries => [
         {
