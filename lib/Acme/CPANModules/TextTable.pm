@@ -144,6 +144,22 @@ _
 
         {
             module => 'Text::ANSITable',
+            description => <<'_',
+
+This 2013 project was my take in creating a text table module that can handle
+color, multiline text, wide characters. I also threw in various formatting
+options, e.g. per-column/row/cell align/valign/pad/vpad, conditional formatting,
+and so on. I even added a couple of features I never used: hiding rows and
+specifying columns to display which can be in different order from the original
+specified columns or can contain the same original columns multiple times. I
+think this module offers the most formatting options on CPAN.
+
+In early 2021, I needed colspan/rowspan and I implemented this in a new module:
+<pm:Text::Table::Span>. I plan to add this feature too to Text::ANSITable, but
+in the meantime I'm also adding more formatting options which I need to
+Text::Table::Span.
+
+_
             bench_code => sub {
                 my ($table) = @_;
                 my $t = Text::ANSITable->new(
