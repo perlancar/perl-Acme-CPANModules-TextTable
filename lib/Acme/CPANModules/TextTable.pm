@@ -31,8 +31,13 @@ our $LIST = {
         box_char => {summary => 'Whether module can utilize box-drawing characters'},
         custom_border => {summary => 'Whether module allows customizing border in some way'},
 
-        align_column => {summary => "Whether module supports aligning text in a column (left/right/middle)"},
-        align_cell => {summary => "Whether module supports aligning text in individual cells (left/right/middle)"},
+        align_row => {summary => "Whether module supports aligning text horizontally in a row (left/right/middle)"},
+        align_column => {summary => "Whether module supports aligning text horizontally in a column (left/right/middle)"},
+        align_cell => {summary => "Whether module supports aligning text horizontally in individual cells (left/right/middle)"},
+
+        valign_row => {summary => "Whether module supports aligning text vertically in a row (top/bottom/middle)"},
+        valign_column => {summary => "Whether module supports aligning text vertically in a column (top/bottom/middle)"},
+        valign_cell => {summary => "Whether module supports aligning text vertically in individual cells (top/bottom/middle)"},
 
         rowspan => {summary => "Whether module supports row spans"},
         colspan => {summary => "Whether module supports column spans"},
@@ -154,6 +159,7 @@ _
             features => {
                 align_cell => 1,
                 align_column => 1,
+                align_row => 1,
                 box_char => 1,
                 color_data =>  1,
                 color_theme => 1,
@@ -162,6 +168,9 @@ _
                 custom_color => 1,
                 multiline_data => 1,
                 rowspan => 0,
+                valign_cell => 1,
+                valign_column => 1,
+                valign_row => 1,
                 wide_char_data => 1,
             },
         },
@@ -269,8 +278,9 @@ _
                 Text::Table::Span::table(rows=>$table, header_row=>1);
             },
             features => {
-                align_cell => 0, # todo
-                align_column => 0, # todo
+                align_cell => 1,
+                align_column => 1,
+                align_row => 1,
                 box_char => 1,
                 color_data =>  0,
                 color_theme => 0,
@@ -279,6 +289,9 @@ _
                 custom_color => 0,
                 multiline_data => 1,
                 rowspan => 1,
+                align_cell => 0, # todo
+                align_column => 0, # todo
+                align_row => 0, # todo
                 wide_char_data => 0,
             },
         },
