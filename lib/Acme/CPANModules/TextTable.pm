@@ -298,17 +298,17 @@ _
                 align_column => 1,
                 align_row => 1,
                 box_char => 1,
-                color_data =>  0,
+                color_data =>  1,
                 color_theme => 0,
                 colspan => 1,
                 custom_border => 1,
                 custom_color => 0,
                 multiline_data => 1,
                 rowspan => 1,
-                align_cell => 0, # todo
-                align_column => 0, # todo
-                align_row => 0, # todo
-                wide_char_data => 0,
+                align_cell => 1,
+                align_column => 1,
+                align_row => 1,
+                wide_char_data => 1,
             },
         },
         {
