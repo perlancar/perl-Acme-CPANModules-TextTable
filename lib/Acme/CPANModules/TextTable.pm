@@ -60,8 +60,8 @@ our $LIST = {
             module => 'Text::Table::Any',
             description => <<'_',
 
-This is a common frontend for many text table modules as backends. The interface
-is dead simple, following <pm:Text::Table::Tiny>. The main drawback is that it
+This is a frontend for many text table modules as backends. The interface is
+dead simple, following <pm:Text::Table::Tiny>. The main drawback is that it
 currently does not allow passing (some, any) options to each backend.
 
 _
@@ -311,7 +311,7 @@ _
             description => <<'_',
 
 A module I wrote in early 2021. Main distinguishing feature is support for
-rowspan/colspan. I plan to add more features to this module on an as-needed
+rowspan/clospan. I plan to add more features to this module on an as-needed
 basic. This module is now preferred than <pm:Text::ANSITable>, although
 currently it does not nearly as many formatting options as Text::ANSITable.
 
