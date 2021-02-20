@@ -312,8 +312,8 @@ _
 
 A module I wrote in early 2021. Main distinguishing feature is support for
 rowspan/clospan. I plan to add more features to this module on an as-needed
-basic. This module is now preferred than <pm:Text::ANSITable>, although
-currently it does not nearly as many formatting options as Text::ANSITable.
+basic. This module is now preferred to <pm:Text::ANSITable>, although currently
+it does not nearly as many formatting options as Text::ANSITable.
 
 _
             bench_code => sub {
