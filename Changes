@@ -1,3 +1,16 @@
+0.009   2021-02-20  Released-By: PERLANCAR; Urgency: medium
+
+	- Add features: column_width, per_column_width, row_height,
+	  per_row_height, pad, vpad.
+
+	- Add entries: Text::Table::Any, Text::Table::More,
+          Text::Table::Manifold, Text::UnicodeBox::Table.
+
+	- [doc] Mention Acme::CPANModules::HTMLTable.
+
+	- Add datasets that contain color & wide char.
+
+
 0.008   2021-02-15  Released-By: PERLANCAR; Urgency: medium
 
 	- Rename feature: color -> color_data.
