@@ -46,6 +46,14 @@ our $LIST = {
         color_theme => {summary => 'Whether the module supports color theme/scheme'},
 
         speed => {summary => "Rendering speed", schema=>'str*'},
+
+        column_width => {summary => 'Whether module allows setting the width of columns'},
+        per_column_width => {summary => 'Whether module allows setting column width on a per-column basis'},
+        row_height => {summary => 'Whether module allows setting the height of rows'},
+        per_row_height => {summary => 'Whether module allows setting row height on a per-row basis'},
+
+        pad => {summary => 'Whether module allows customizing cell horizontal padding'},
+        vpad => {summary => 'Whether module allows customizing cell vertical padding'},
     },
     entries => [
         {
@@ -184,14 +192,20 @@ _
                 color_data =>  1,
                 color_theme => 1,
                 colspan => 0,
+                column_width => 1,
                 custom_border => 1,
                 custom_color => 1,
                 multiline_data => 1,
+                pad => 1,
+                per_column_width => 1,
+                per_row_height => 1,
+                row_height => 1,
                 rowspan => 0,
                 speed => "slow",
                 valign_cell => 1,
                 valign_column => 1,
                 valign_row => 1,
+                vpad => 1,
                 wide_char_data => 1,
             },
         },
@@ -323,6 +337,12 @@ _
                 valign_column => 1,
                 valign_row => 1,
                 wide_char_data => 1,
+                column_width => 0, # todo
+                per_column_width => 0, # todo
+                row_height => 0, # todo
+                per_row_height => 0, # todo
+                pad => 0, # todo
+                vpad => 0, # todo
             },
         },
         {
