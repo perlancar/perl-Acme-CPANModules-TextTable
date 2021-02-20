@@ -45,7 +45,7 @@ our $LIST = {
         custom_color => {summary => 'Whether the module produces colored table and supports customizing color in some way'},
         color_theme => {summary => 'Whether the module supports color theme/scheme'},
 
-        #speed => {summary => "Rendering speed", schema=>'str*'},
+        speed => {summary => "Rendering speed", schema=>'str*'},
     },
     entries => [
         {
@@ -64,6 +64,7 @@ _
             features => {
                 align_cell     => {value=>undef, summary=>"Depends on backend"},
                 align_column   => {value=>undef, summary=>"Depends on backend"},
+                align_row      => {value=>undef, summary=>"Depends on backend"},
                 box_char       => {value=>undef, summary=>"Depends on backend"},
                 color_data     => {value=>undef, summary=>"Depends on backend"},
                 color_theme    => {value=>undef, summary=>"Depends on backend"},
@@ -72,8 +73,11 @@ _
                 custom_color   => {value=>undef, summary=>"Depends on backend"},
                 multiline_data => {value=>undef, summary=>"Depends on backend"},
                 rowspan        => {value=>undef, summary=>"Depends on backend"},
+                speed          => {value=>undef, summary=>"Depends on backend"},
+                valign_cell    => {value=>undef, summary=>"Depends on backend"},
+                valign_column  => {value=>undef, summary=>"Depends on backend"},
+                valign_row     => {value=>undef, summary=>"Depends on backend"},
                 wide_char_data => {value=>undef, summary=>"Depends on backend"},
-                #speed          => {value=>undef, summary=>"Depends on backend"},
             },
         },
 
@@ -105,7 +109,7 @@ _
                 multiline_data => 0,
                 rowspan => 0,
                 wide_char_data => 1,
-                #speed => "slow",
+                speed => "slow",
             },
         },
 
@@ -155,9 +159,9 @@ specified columns or can contain the same original columns multiple times. I
 think this module offers the most formatting options on CPAN.
 
 In early 2021, I needed colspan/rowspan and I implemented this in a new module:
-<pm:Text::Table::Span>. I plan to add this feature too to Text::ANSITable, but
-in the meantime I'm also adding more formatting options which I need to
-Text::Table::Span.
+<pm:Text::Table::Span> (later renamed to <pm:Text::Table::More>). I plan to add
+this feature too to Text::ANSITable, but in the meantime I'm also adding more
+formatting options which I need to Text::Table::More.
 
 _
             bench_code => sub {
@@ -184,6 +188,7 @@ _
                 custom_color => 1,
                 multiline_data => 1,
                 rowspan => 0,
+                speed => "slow",
                 valign_cell => 1,
                 valign_column => 1,
                 valign_row => 1,
@@ -288,10 +293,18 @@ _
             },
         },
         {
-            module => 'Text::Table::Span',
+            module => 'Text::Table::More',
+            description => <<'_',
+
+A module I wrote in early 2021. Main distinguishing feature is support for
+rowspan/colspan. I plan to add more features to this module on an as-needed
+basic. This module is now preferred than <pm:Text::ANSITable>, although
+currently it does not nearly as many formatting options as Text::ANSITable.
+
+_
             bench_code => sub {
                 my ($table) = @_;
-                Text::Table::Span::table(rows=>$table, header_row=>1);
+                Text::Table::More::generate_table(rows=>$table, header_row=>1);
             },
             features => {
                 align_cell => 1,
@@ -305,9 +318,10 @@ _
                 custom_color => 0,
                 multiline_data => 1,
                 rowspan => 1,
-                align_cell => 1,
-                align_column => 1,
-                align_row => 1,
+                speed => "slow",
+                valign_cell => 1,
+                valign_column => 1,
+                valign_row => 1,
                 wide_char_data => 1,
             },
         },
@@ -318,10 +332,11 @@ _
                 Text::Table::Sprintf::table(rows=>$table, header_row=>1);
             },
             features => {
-                wide_char_data => 0,
-                color_data =>  0,
                 box_char => 0,
+                color_data =>  0,
                 multiline_data => 0,
+                speed => "fast",
+                wide_char_data => 0,
             },
         },
         {
