@@ -347,6 +347,12 @@ _
         },
         {
             module => 'Text::Table::Sprintf',
+            description => <<'_',
+
+A performant (see benchmark result) and lightweight (a page of code, no use of
+modules at all), but with minimal extra features.
+
+_
             bench_code => sub {
                 my ($table) = @_;
                 Text::Table::Sprintf::table(rows=>$table, header_row=>1);
