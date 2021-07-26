@@ -504,7 +504,7 @@ for my $entry (@{ $list->{entries} }) {
     next if $entry->{module} =~ /^(Text::UnicodeBox::Table)$/; ; # XXX disabled for now due to dzil encoding problem
     eval "require $entry->{module};";
     die "Can't require $entry->{module}: $@" if $@;
-    print "=item * $entry->{module}\n\n";
+    print "=item * L</$entry->{module}>\n\n";
     my $table_str = $entry->{bench_code}->($table_data);
     $table_str =~ s/^/ /gm;
     print $table_str;
