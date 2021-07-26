@@ -488,6 +488,33 @@ _
 1;
 # ABSTRACT:
 
+=head1 SAMPLE OUTPUTS
+
+This section shows what the output is like for (some of the) modules:
+
+=over
+
+# BEGIN_CODE
+require Acme::CPANModules::TextTable;
+
+my $list = $Acme::CPANModules::TextTable::LIST;
+my $table_data = Acme::CPANModules::TextTable::_make_table(3, 5);
+for my $entry (@{ $list->{entries} }) {
+    next unless $entry->{bench_code};
+    next if $entry->{module} =~ /^(Text::UnicodeBox::Table)$/; ; # XXX disabled for now due to dzil encoding problem
+    eval "require $entry->{module};";
+    die "Can't require $entry->{module}: $@" if $@;
+    print "=item * $entry->{module}\n\n";
+    my $table_str = $entry->{bench_code}->($table_data);
+    $table_str =~ s/^/ /gm;
+    print $table_str;
+    print "\n\n";
+}
+# END_CODE
+
+=back
+
+
 =head1 prepend:SEE ALSO
 
 L<Acme::CPANModules::HTMLTable>
