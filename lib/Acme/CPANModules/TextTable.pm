@@ -282,6 +282,14 @@ _
         },
         {
             module => 'Text::Table::Tiny',
+            description => <<'_',
+
+The simple and tiny table-generating module which I liked back in 2012 (v0.03).
+It employs an sprintf() trick to generate a single row. This module started my
+personal experiments creating other table-generating modules (at last count I've
+created no fewer than 15 of them!).
+
+_
             bench_code => sub {
                 my ($table) = @_;
                 Text::Table::Tiny::table(rows=>$table, header_row=>1);
@@ -297,7 +305,7 @@ _
             module => 'Text::Table::TinyBorderStyle',
             bench_code => sub {
                 my ($table) = @_;
-                Text::Table::TinyBorderStyle::table(rows=>$table, header_row=>1);
+ <               Text::Table::TinyBorderStyle::table(rows=>$table, header_row=>1);
             },
             features => {
                 wide_char_data => 0,
@@ -313,7 +321,7 @@ _
 A module I wrote in early 2021. Main distinguishing feature is support for
 rowspan/clospan. I plan to add more features to this module on an as-needed
 basic. This module is now preferred to <pm:Text::ANSITable>, although currently
-it does not nearly as many formatting options as Text::ANSITable.
+it does not offer nearly as many formatting options as Text::ANSITable.
 
 _
             bench_code => sub {
